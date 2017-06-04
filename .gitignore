@@ -11,3 +11,6 @@ build/
 *.egg-info
 _build
 distribute-*
+
+# geckodriver files
+*.log
