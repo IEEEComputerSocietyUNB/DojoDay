@@ -1,5 +1,6 @@
 import unittest
 from main import local_app
+from selenium import webdriver
 
 class TestHome(unittest.TestCase):
 
@@ -39,6 +40,18 @@ class TestForms(unittest.TestCase):
 
     def test_send_button(self):
         self.assertIn('type="submit"', self.content)
+
+class TestSelenium(unittest.TestCase):
+
+    def setUp(self):
+        # create the fake browser
+        self.driver = webdriver.Firefox()
+        # get request using the fake browser
+        self.driver.get('/')
+
+    def closeWeb(self):
+        # close the fake browser
+        self.driver.quit()
 
 if __name__ == '__main__':
     unittest.main()
