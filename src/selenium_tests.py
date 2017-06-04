@@ -18,9 +18,8 @@ class TestSelenium(unittest.TestCase):
         self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
         # either a login message apeear
         self.assertNotIn('Bem vinda.', self.driver.page_source)
-        time.sleep(2)
         username.clear()
-        self.closeWeb()
+        self.tearDown()
 
     def test_fill_only_password(self):
         password = self.driver.find_element_by_id('inputPassword')
@@ -30,12 +29,12 @@ class TestSelenium(unittest.TestCase):
         self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
         # either a login message apeear
         self.assertNotIn('Bem vinda.', self.driver.page_source)
-        time.sleep(2)
         password.clear()
-        self.closeWeb()
+        self.tearDown()
 
-    def closeWeb(self):
-        # close the fake browser
+    def tearDown(self):
+        # wait a little and close the fake web
+        time.sleep(2)
         self.driver.quit()
 
 if __name__ == '__main__':
