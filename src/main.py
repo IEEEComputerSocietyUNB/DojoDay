@@ -11,7 +11,8 @@ def login():
     error = ''
     if request.method == 'POST':
         if valid_login(request.form['inputLogin'], request.form['inputPassword']):
-            return redirect(url_for('index'))
+            error = 'Bem vinda.'
+            # return redirect(url_for('index'))
         else:
             error = 'Erro, insira um login válido.'
 
@@ -20,7 +21,7 @@ def login():
 def valid_login(username, password):
     return True if (username, password) in all_users else False
 
-all_users = [('dayanne', '12345'), ('day', '123')]
+all_users = [('dayanne@gg.com', '12345'), ('day@gg.com', '123')]
 
 if __name__ == '__main__':
     local_app.run(debug=True)

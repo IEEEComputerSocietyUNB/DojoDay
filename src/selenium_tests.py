@@ -43,6 +43,17 @@ class TestSelenium(unittest.TestCase):
         self.assertIn('Erro, insira um login válido.', self.driver.page_source)
         self.tearDown()
 
+    def test_fill_correct_login(self):
+        username = self.driver.find_element_by_id('inputLogin')
+        password = self.driver.find_element_by_id('inputPassword')
+        username.send_keys('dayanne@gg.com')
+        password.send_keys('12345')
+        self.driver.find_element_by_name('submit').click()
+        self.resend_and_update()
+        # an error message appear
+        self.assertIn('Bem vinda.', self.driver.page_source)
+        self.tearDown()
+
     def resend_and_update(self):
         try:
             time.sleep(1)
