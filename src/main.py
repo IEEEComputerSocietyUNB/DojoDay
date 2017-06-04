@@ -7,6 +7,10 @@ local_app = Flask('local_app')
 def home():
     return ''
 
+if __name__ == '__main__':
+    local_app.run()
+
+
 # def main():
 #     # create the fake browser
 #     driver = webdriver.Firefox()

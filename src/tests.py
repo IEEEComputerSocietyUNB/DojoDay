@@ -3,10 +3,15 @@ from main import local_app
 
 class TestHome(unittest.TestCase):
 
-    def test_get(self):
+    def setUp(self):
         app = local_app.test_client()
-        response = app.get('/')
-        self.assertEqual(200, response.status_code)
+        self.response = app.get('/')
+
+    def test_get_status_code(self):
+        self.assertEqual(200, self.response.status_code)
+
+    def test_get_content(self):
+        self.assertIn('text/html', self.response.content_type)
 
 if __name__ == '__main__':
     unittest.main()
