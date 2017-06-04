@@ -45,7 +45,7 @@ Run Selenium Tests
 
     $ python3 selenium_tests.py
 
-* Como cada método de teste abre um browser para testar uma funcionalidade então é aconselhável rodar um teste por vez, por exemplo:
+* Como cada método de teste abre um browser para testar uma funcionalidade então é aconselhável rodar um novo teste sozinho, por exemplo:
 
     $ python3 selenium_tests.py TestSelenium.test_fill_only_login
 
