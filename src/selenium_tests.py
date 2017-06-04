@@ -14,9 +14,24 @@ class TestSelenium(unittest.TestCase):
         username = self.driver.find_element_by_id('inputLogin')
         username.send_keys('Dayanne')
         self.driver.find_element_by_name('submit').click()
-        self.assertIn('Erro, insira uma senha.', self.driver.page_source)
+        # either an error message appear
+        self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
+        # either a login message apeear
+        self.assertNotIn('Bem vinda.', self.driver.page_source)
         time.sleep(2)
         username.clear()
+        self.closeWeb()
+
+    def test_fill_only_password(self):
+        password = self.driver.find_element_by_id('inputPassword')
+        password.send_keys('123')
+        self.driver.find_element_by_name('submit').click()
+        # either an error message appear
+        self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
+        # either a login message apeear
+        self.assertNotIn('Bem vinda.', self.driver.page_source)
+        time.sleep(2)
+        password.clear()
         self.closeWeb()
 
     def closeWeb(self):
