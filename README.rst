@@ -24,10 +24,20 @@ Create
 
     $ python3 setup.py install
 
-Run
----
+Run Tests
+---------
 
 * Entrar em src/
 * Executar o script:
 
     $ python3 tests.py
+
+Run Web
+---------
+
+* Entrar em src/
+* Executar o script:
+
+    $ python3 main.py
+
+* Acessar a página no http://localhost:5000
