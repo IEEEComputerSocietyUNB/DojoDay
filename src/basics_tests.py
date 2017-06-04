@@ -39,3 +39,6 @@ class TestForms(unittest.TestCase):
 
     def test_send_button(self):
         self.assertIn('type="submit"', self.content)
+
+if __name__ == '__main__':
+    unittest.main()
