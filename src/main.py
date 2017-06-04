@@ -5,7 +5,7 @@ local_app = Flask('local_app')
 
 @local_app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('about.html')
 
 if __name__ == '__main__':
     local_app.run()
