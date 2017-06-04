@@ -1,6 +1,5 @@
 import unittest
 from main import local_app
-from selenium import webdriver
 
 class TestHome(unittest.TestCase):
 
