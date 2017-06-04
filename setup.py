@@ -16,5 +16,5 @@ setup(
     author_email='dayannefernandesc@gmail.com',
     license='MIT',
     packages=find_packages(),
-    install_requires=['flask, selenium'],
+    install_requires=['flask', 'selenium'],
 )
