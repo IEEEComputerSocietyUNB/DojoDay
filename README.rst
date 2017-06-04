@@ -10,17 +10,24 @@ Tools
 
 * Virtualenv
 * Python 3.x
+* Unittest
 * Flask
 * Selenium
+* HTML
 
 Create
 ------
 
 * Criar ambiente env/
 * Ativar o ambiente env/
-* Executar o script
+* Executar o script:
 
     $ python3 setup.py install
 
 Run
 ---
+
+* Entrar em src/
+* Executar o script:
+
+    $ python3 tests.py
