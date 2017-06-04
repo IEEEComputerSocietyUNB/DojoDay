@@ -6,3 +6,7 @@
 
 # Distribution
 env/
+build/
+*.egg-info
+_build
+distribute-*
