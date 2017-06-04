@@ -1,0 +1,8 @@
+# Others
+.DS_Store
+
+# Byte-compiled
+*.pyc
+
+# Distribution
+env/
