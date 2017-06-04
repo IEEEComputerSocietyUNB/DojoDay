@@ -5,7 +5,7 @@ local_app = Flask('local_app')
 
 @local_app.route('/')
 def home():
-    return ''
+    return 'Dojo Day 2017'
 
 if __name__ == '__main__':
     local_app.run()
