@@ -14,8 +14,8 @@ class TestSelenium(unittest.TestCase):
         username = self.driver.find_element_by_id('inputLogin')
         username.send_keys('Dayanne')
         self.driver.find_element_by_name('submit').click()
+        self.assertIn('Erro, insira uma senha.', self.driver.page_source)
         time.sleep(2)
-        # self.assertIn('Erro, insira uma senha.', self.driver.page_source)
         username.clear()
         self.closeWeb()
 
