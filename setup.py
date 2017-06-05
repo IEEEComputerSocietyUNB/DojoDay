@@ -12,7 +12,7 @@ setup(
     version='0.0.1',
     description='TDD com Flask + Selenium.',
     long_description=long_description,
-    author='Dayanne Fernandes e Cristiando Junior',
+    author='Dayanne Fernandes e Cristiano Junior',
     author_email='dayannefernandesc@gmail.com',
     license='MIT',
     packages=find_packages(),
