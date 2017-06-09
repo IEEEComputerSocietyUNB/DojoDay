@@ -1,11 +1,11 @@
 import unittest
-from main import local_app
+from main import app
 
 class TestHome(unittest.TestCase):
 
     def setUp(self):
-        app = local_app.test_client()
-        self.response = app.get('/')
+        client = app.test_client()
+        self.response = client.get('/')
         # return bytes
         self.content = self.response.data.decode('utf-8')
 
@@ -27,8 +27,8 @@ class TestHome(unittest.TestCase):
 class TestForms(unittest.TestCase):
 
     def setUp(self):
-        app = local_app.test_client()
-        self.response = app.get('/login')
+        client = app.test_client()
+        self.response = client.get('/login')
         self.content = self.response.data.decode('utf-8')
 
     def test_login_form(self):
