@@ -39,7 +39,7 @@ def login():
 
             error = 'Erro, insira um login válido.'
     else:
-        wrong_logins = 0
+        wrong_logins, captcha = 0, ''
 
     return render_template('forms.html', error = error, captcha = captcha)
 

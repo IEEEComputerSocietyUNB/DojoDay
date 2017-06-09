@@ -68,6 +68,7 @@ class TestSelenium(unittest.TestCase):
         self.resend_and_update()
         self.assertIn('Erro, insira um login válido.', self.driver.page_source)
 
+        time.sleep(2)
         self.login('cris@g.com', '123')
         self.resend_and_update()
         self.assertIn('Erro, insira um login válido.', self.driver.page_source)
