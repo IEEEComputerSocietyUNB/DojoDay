@@ -54,6 +54,26 @@ class TestSelenium(unittest.TestCase):
         self.assertIn('Bem vinda.', self.driver.page_source)
         self.tearDown()
 
+    def test_insert_two_wrong_logins(self):
+        self.login('day@g.com', '123')
+        self.resend_and_update()
+        self.assertIn('Erro, insira um login válido.', self.driver.page_source)
+
+        self.login('cris@g.com', '123')
+        self.resend_and_update()
+        self.assertIn('Erro, insira um login válido.', self.driver.page_source)
+
+        self.tearDown()
+
+    def login(self, user_email, user_pass):
+        username = self.driver.find_element_by_id('inputLogin')
+        password = self.driver.find_element_by_id('inputPassword')
+
+        username.send_keys(user_email)
+        password.send_keys(user_pass)
+
+        self.driver.find_element_by_name('submit').click()
+
     def resend_and_update(self):
         try:
             time.sleep(1)
