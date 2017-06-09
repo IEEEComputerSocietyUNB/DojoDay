@@ -12,15 +12,21 @@ from main import app
 #                                           (200 é OK, 404 erro)
 #   app.test_client().get(url).content_type -> tipo do arquivo retornado no get
 
+# Métodos do Unittest que podem ser uteis:
+#
+#   self.assertNotIn(ob1, obj2) -> testa se obj1 não está dentro do obj2
+#   self.assertIn(ob1, obj2) -> testa se obj1 está dentro do obj2
+#   self.assertEqual(obj1, obj2) -> testa se obj1 é igual ao obj2
+
 class TestHome(unittest.TestCase):
 
-    # Inicia aplicação e url inicial
+    # TODO Iniciar aplicação e url inicial
     def setUp(self):
         pass
 
 class TestForms(unittest.TestCase):
 
-    # Inicia aplicação e url inicial
+    # TODO Iniciar aplicação e url inicial
     def setUp(self):
         pass
 
