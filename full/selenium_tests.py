@@ -79,6 +79,20 @@ class TestSelenium(unittest.TestCase):
 
         self.tearDown()
 
+    def test_dismiss_captcha_after_five_wrong_logins_followed(self):
+        count, msg_error = 0, ''
+
+        while count < 5:
+            self.login('day@g.com', '123')
+            self.resend_and_update()
+            count += 2
+            time.sleep(4)
+            if 'error' in self.driver.page_source:
+                msg_error = self.driver.find_element_by_id('error').text
+
+        self.assertEqual("You're a HACKER!", msg_error)
+        self.tearDown()
+
     def login(self, user_email, user_pass):
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
