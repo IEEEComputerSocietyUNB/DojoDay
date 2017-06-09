@@ -9,7 +9,9 @@
     <label for="inputPassword">Password</label>
     <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password" required="true">
   </div></br>
+  {{ captcha }}
+  </br>
   <button name="submit" type="submit" class="btn btn-default">Submit</button>
-  {{ error }}
+  <div id="error">{{ error }}</div>
 </form>
 {% endblock %}
