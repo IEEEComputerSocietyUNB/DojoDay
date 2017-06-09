@@ -65,6 +65,20 @@ class TestSelenium(unittest.TestCase):
 
         self.tearDown()
 
+    def test_insert_five_wrong_logins(self):
+        count = 0
+        logins = [('day@g.com', '123'), ('cris@g.com', '123'), ('hackerman@g.com', '123'), ('emailcomplicado@g.com', '123'), ('cris@bing.com', '123')]
+
+        for user in logins:
+            self.login(user[0], user[1])
+            self.resend_and_update()
+            time.sleep(1)
+            count += 1 if 'Erro, insira um login válido.' in self.driver.page_source else 0
+
+        self.assertEqual(5, count)
+
+        self.tearDown()
+
     def login(self, user_email, user_pass):
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
