@@ -8,6 +8,8 @@ Você foi contratado para desenvolver uma simples página com um formulário de 
 
 Você sabe que ele não é muito criativo e vai utilizar um método de força bruta para achar um usuário cadastrado para os dados, portanto elabore um sistema que previna a utilização deste método.
 
+.. image:: http://i.imgur.com/Zl5Mjan.jpg
+
 Entregas
 --------
 
