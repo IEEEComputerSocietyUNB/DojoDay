@@ -7,10 +7,10 @@ class TestSelenium(unittest.TestCase):
     def setUp(self):
         # create the fake browser
         self.driver = webdriver.Firefox()
-        # get request using the fake browser
-        self.driver.get('http://localhost:5000/login')
 
     def test_fill_only_login(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
         username = self.driver.find_element_by_id('inputLogin')
         username.send_keys('Dayanne')
         self.driver.find_element_by_name('submit').click()
@@ -22,6 +22,8 @@ class TestSelenium(unittest.TestCase):
         self.tearDown()
 
     def test_fill_only_password(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
         password = self.driver.find_element_by_id('inputPassword')
         password.send_keys('123')
         self.driver.find_element_by_name('submit').click()
@@ -33,6 +35,8 @@ class TestSelenium(unittest.TestCase):
         self.tearDown()
 
     def test_fill_wrong_login(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
         username.send_keys('dayanne@g.com')
@@ -44,6 +48,8 @@ class TestSelenium(unittest.TestCase):
         self.tearDown()
 
     def test_fill_correct_login(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
         username.send_keys('dayanne@gg.com')
@@ -55,6 +61,9 @@ class TestSelenium(unittest.TestCase):
         self.tearDown()
 
     def test_insert_two_wrong_logins(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
+
         self.login('day@g.com', '123')
         self.resend_and_update()
         self.assertIn('Erro, insira um login válido.', self.driver.page_source)
@@ -65,21 +74,10 @@ class TestSelenium(unittest.TestCase):
 
         self.tearDown()
 
-    def test_insert_five_wrong_logins(self):
-        count = 0
-        logins = [('day@g.com', '123'), ('cris@g.com', '123'), ('hackerman@g.com', '123'), ('emailcomplicado@g.com', '123'), ('cris@bing.com', '123')]
-
-        for user in logins:
-            self.login(user[0], user[1])
-            self.resend_and_update()
-            time.sleep(1)
-            count += 1 if 'Erro, insira um login válido.' in self.driver.page_source else 0
-
-        self.assertEqual(5, count)
-
-        self.tearDown()
-
     def test_dismiss_captcha_after_five_wrong_logins_followed(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
+
         count, msg_error = 0, ''
 
         while count < 5:

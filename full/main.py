@@ -38,7 +38,8 @@ def login():
                 captcha = google_captcha
 
             error = 'Erro, insira um login válido.'
-            print(wrong_logins)
+    else:
+        wrong_logins = 0
 
     return render_template('forms.html', error = error, captcha = captcha)
 
