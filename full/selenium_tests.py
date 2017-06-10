@@ -15,9 +15,11 @@ class TestSelenium(unittest.TestCase):
 
     def waitForElement(self, type, name):
         if type == 'id':
-            return self.wait.until(EC.element_to_be_clickable((By.ID, name)))
+            return self.wait.until(EC.visibility_of_element_located((By.ID,
+                                                                    name)))
         elif type == 'class':
-            return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, name)))
+            return self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME,
+                                                            name)))
 
     def test_fill_only_login(self):
         # get request using the fake browser
