@@ -75,7 +75,20 @@ class TestSelenium(unittest.TestCase):
 
         self.tearDown()
 
-    def test_dismiss_captcha_after_five_wrong_logins_followed(self):
+    def test_not_appear_captcha_if_insert_six_diff_wrong_logins_followed(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
+
+        for i in range(3):
+            self.login('day'+str(i)+'@g.com', str(i))
+            self.resend_and_update()
+            time.sleep(4)
+
+        self.assertNotIn('class="g-recaptcha"', self.driver.page_source)
+
+        self.tearDown()
+
+    def test_dismiss_captcha_after_six_wrong_logins_followed(self):
         # get request using the fake browser
         self.driver.get('http://localhost:5000/login')
 

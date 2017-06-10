@@ -7,7 +7,6 @@ recaptcha = ReCaptcha(app=app,
                     secret_key='6LeS4SQUAAAAAO8JR_FkGwbZBQ721uLci19X3bcC')
 
 log = {}
-wrong_logins = 0
 captcha = ''
 all_users = [('dayanne@gg.com', '12345'), ('day@gg.com', '123')]
 google_captcha = Markup('<div class="g-recaptcha" data-sitekey="6LeS4SQUAAAAAGbKWNy1b9oG7TSV6bhUaUJ4V-cF"></div>')
@@ -18,28 +17,31 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    global wrong_logins, captcha
+    global log, captcha
     error = ''
     if request.method == 'POST':
+        user_email, user_password = request.form['inputLogin'], request.form['inputPassword']
+
         if captcha:
             if recaptcha.verify():
-                if valid_login(request.form['inputLogin'], request.form['inputPassword']):
-                    wrong_logins = 0
-                    error = 'Bem vinda.'
+                if valid_login(user_email, user_password):
+                    log[user_email], error = 0, 'Bem vinda.'
             else:
                 error = "You're a HACKER!"
-        elif valid_login(request.form['inputLogin'], request.form['inputPassword']):
-            wrong_logins = 0
-            captcha = ''
-            error = 'Bem vinda.'
+        elif valid_login(user_email, user_password):
+            log[user_email], error, captcha = 0, 'Bem vinda.', ''
         else:
-            wrong_logins += 1
-            if wrong_logins >= 5:
+            if user_email not in log.keys():
+                log[user_email] = 1
+            else:
+                log[user_email] += 1
+
+            if log[user_email] >= 5:
                 captcha = google_captcha
 
             error = 'Erro, insira um login válido.'
     else:
-        wrong_logins, captcha = 0, ''
+        log, captcha = {}, ''
 
     return render_template('forms.html', error = error, captcha = captcha)
 
