@@ -1,11 +1,26 @@
 import time
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 # Métodos e propriedades do Selenium que podem ser uteis:
 #
 #   webdriver.Firefox() -> abre o browser
+#
+#   WebDriverWait(driver, x) -> espera explicitamente aparecer um elemento
+#                               em até x segundos, depois gera TimeoutException
+#
+#   WebDriverWait(driver, x).until(EC.visibility_of_element_located((By.ID,
+#   name))) -> retorna o elemento name após aparecer no HTML (elemento coletado
+#   pela ID)
+#
+#   WebDriverWait(driver,
+#   x).until(EC.visibility_of_element_located((By.CLASS_NAME, name))) -> retorna
+#   o elemento name após aparecer no HTML (elemento coletado pela classe)
 #
 #   driver.get(url) -> acessa uma url e coleta o html estático da página
 #   driver.find_element_by_id(id) -> pega o elemento que contêm a id procurada
@@ -29,6 +44,7 @@ from selenium.webdriver.common.keys import Keys
 #                               e.g. Keys.RETURN
 #   element.clear() -> limpa qualquer texto em um campo de input
 #   element.click() -> manda evento de clicar no elemento
+#   element.text -> pega o texto que está dentro do elemento 
 
 # Métodos do Unittest que podem ser uteis:
 #

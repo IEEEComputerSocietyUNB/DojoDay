@@ -41,6 +41,7 @@ class TestSelenium(unittest.TestCase):
 
         password = self.driver.find_element_by_id('inputPassword')
         password.send_keys('123')
+
         self.driver.find_element_by_name('submit').click()
 
         # error message will never appear, so raise a timetout
