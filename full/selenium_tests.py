@@ -1,63 +1,86 @@
-import unittest
 import time
+import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 
 class TestSelenium(unittest.TestCase):
 
     def setUp(self):
         # create the fake browser
         self.driver = webdriver.Firefox()
+        self.wait = WebDriverWait(self.driver, 10)
+
+    def waitForElement(self, type, name):
+        if type == 'id':
+            return self.wait.until(EC.element_to_be_clickable((By.ID, name)))
+        elif type == 'class':
+            return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, name)))
 
     def test_fill_only_login(self):
         # get request using the fake browser
         self.driver.get('http://localhost:5000/login')
+
         username = self.driver.find_element_by_id('inputLogin')
         username.send_keys('Dayanne')
         self.driver.find_element_by_name('submit').click()
-        self.resend_and_update()
-        # either an error message appear
-        self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
-        # either a login message apeear
-        self.assertNotIn('Bem vinda.', self.driver.page_source)
+
+        # error message will never appear, so raise a timetout
+        self.assertRaises(TimeoutException,
+                            lambda : self.waitForElement('id', 'error'))
+
         self.tearDown()
 
     def test_fill_only_password(self):
         # get request using the fake browser
         self.driver.get('http://localhost:5000/login')
+
         password = self.driver.find_element_by_id('inputPassword')
         password.send_keys('123')
         self.driver.find_element_by_name('submit').click()
-        self.resend_and_update()
-        # either an error message appear
-        self.assertNotIn('Erro, insira um login válido.', self.driver.page_source)
-        # either a login message apeear
-        self.assertNotIn('Bem vinda.', self.driver.page_source)
+
+        # error message will never appear, so raise a timetout
+        self.assertRaises(TimeoutException,
+                            lambda : self.waitForElement('id', 'error'))
+
         self.tearDown()
 
     def test_fill_wrong_login(self):
         # get request using the fake browser
         self.driver.get('http://localhost:5000/login')
+
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
+
         username.send_keys('dayanne@g.com')
         password.send_keys('gg')
+
         self.driver.find_element_by_name('submit').click()
-        self.resend_and_update()
+
         # an error message appear
-        self.assertIn('Erro, insira um login válido.', self.driver.page_source)
+        self.assertEqual('Erro, insira um login válido.',
+                            self.waitForElement('id', 'error').text)
+
         self.tearDown()
 
     def test_fill_correct_login(self):
         # get request using the fake browser
         self.driver.get('http://localhost:5000/login')
+
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
+
         username.send_keys('dayanne@gg.com')
         password.send_keys('12345')
+
         self.driver.find_element_by_name('submit').click()
-        self.resend_and_update()
-        # an error message appear
-        self.assertIn('Bem vinda.', self.driver.page_source)
+
+        # a welcome message appear
+        self.assertEqual('Bem vinda.',
+                        self.waitForElement('id', 'error').text)
+
         self.tearDown()
 
     def test_insert_two_wrong_logins(self):
@@ -65,47 +88,19 @@ class TestSelenium(unittest.TestCase):
         self.driver.get('http://localhost:5000/login')
 
         self.login('day@g.com', '123')
-        self.resend_and_update()
-        self.assertIn('Erro, insira um login válido.', self.driver.page_source)
+        # an error message appear
+        self.assertEqual('Erro, insira um login válido.',
+                            self.waitForElement('id', 'error').text)
 
-        time.sleep(2)
         self.login('cris@g.com', '123')
-        self.resend_and_update()
-        self.assertIn('Erro, insira um login válido.', self.driver.page_source)
+        # an error message appear
+        self.assertEqual('Erro, insira um login válido.',
+                            self.waitForElement('id', 'error').text)
 
-        self.tearDown()
-
-    def test_not_appear_captcha_if_insert_six_diff_wrong_logins_followed(self):
-        # get request using the fake browser
-        self.driver.get('http://localhost:5000/login')
-
-        for i in range(3):
-            self.login('day'+str(i)+'@g.com', str(i))
-            self.resend_and_update()
-            time.sleep(4)
-
-        self.assertNotIn('class="g-recaptcha"', self.driver.page_source)
-
-        self.tearDown()
-
-    def test_dismiss_captcha_after_six_wrong_logins_followed(self):
-        # get request using the fake browser
-        self.driver.get('http://localhost:5000/login')
-
-        count, msg_error = 0, ''
-
-        while count < 5:
-            self.login('day@g.com', '123')
-            self.resend_and_update()
-            count += 2
-            time.sleep(4)
-            if 'error' in self.driver.page_source:
-                msg_error = self.driver.find_element_by_id('error').text
-
-        self.assertEqual("You're a HACKER!", msg_error)
         self.tearDown()
 
     def login(self, user_email, user_pass):
+        self.waitForElement('id', 'inputLogin')
         username = self.driver.find_element_by_id('inputLogin')
         password = self.driver.find_element_by_id('inputPassword')
 
@@ -114,15 +109,33 @@ class TestSelenium(unittest.TestCase):
 
         self.driver.find_element_by_name('submit').click()
 
-    def resend_and_update(self):
-        try:
+    def test_not_appear_captcha_if_insert_five_diff_wrong_logins_followed(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
+
+        for i in range(5):
+            self.login('day'+str(i)+'@g.com', str(i))
+
+        # error message will never appear, so raise a timetout
+        self.assertRaises(TimeoutException,
+                            lambda : self.waitForElement('class',
+                                                        'g-recaptcha'))
+
+        self.tearDown()
+
+    def test_dismiss_captcha_after_six_wrong_logins_followed(self):
+        # get request using the fake browser
+        self.driver.get('http://localhost:5000/login')
+
+        for i in range(6):
+            self.login('day@g.com', '1'+str(i))
             time.sleep(1)
-            # refresh with the form
-            self.driver.refresh()
-            time.sleep(2)
-            self.driver.switch_to.alert.accept()
-        except:
-            pass
+
+        time.sleep(1)
+        self.assertEqual("You're a HACKER!",
+                        self.waitForElement('id', 'error').text)
+
+        self.tearDown()
 
     def tearDown(self):
         # wait a little and close the fake web
