@@ -6,7 +6,7 @@ Motivação
 
 Você se chama ``Batman`` e foi contratado para desenvolver uma simples página com um formulário de login de um site. Como todo grande herói, você possui um arqui-inimigo, chamado ``Coringa``, que é um hacker. Ele descobriu que você foi contratado para este freela e vai tentar minar este serviço.
 
-Como todo vilão, ele vai utilizar um método de força bruta para achar um usuário cadastrado para os dados, portanto elabore um sistema que previna a utilização deste método.
+Como todo vilão, ele vai utilizar um método de força bruta para achar um usuário cadastrado para roubar os dados, portanto elabore um sistema que previna a utilização deste método.
 
 .. image:: http://i.imgur.com/Zl5Mjan.jpg
 
