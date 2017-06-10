@@ -32,9 +32,12 @@ from selenium.webdriver.common.keys import Keys
 
 # Métodos do Unittest que podem ser uteis:
 #
+#   self.assertEqual(obj1, obj2) -> testa se obj1 é igual ao obj2
+#   self.assertRaises(exception, callable) -> testa se a execução de callable chama a exceção exception
+#   self.assertTrue(obj1) -> testa se o obj1 é avaliado como verdadeiro
+#   self.assertFalse(obj1) -> testa se o obj1 é avaliado como falso
 #   self.assertNotIn(ob1, obj2) -> testa se obj1 não está dentro do obj2
 #   self.assertIn(ob1, obj2) -> testa se obj1 está dentro do obj2
-#   self.assertEqual(obj1, obj2) -> testa se obj1 é igual ao obj2
 
 # Métodos do python que podem ser uteis:
 #
